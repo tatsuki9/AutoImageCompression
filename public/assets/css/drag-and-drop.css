@@ -1,0 +1,49 @@
+#dropto { background: #FFC; border: 2px dashed #CCC; height: 200px; line-height:200px; text-align: center; color: #CCC; }
+#dropto.over { background: lightgreen; }
+#progress { width: 100%; }
+#percent { background: #55d49b; margin: 20px 0; width: 0; height: 10px; }
+[id^="cancel"] {
+    position: absolute;
+    top: 5%;
+    display: inline;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+[id^="cancel"]::before,
+[id^="cancel"]::after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    content: "";
+    width: 16px;
+    border-top: 6px solid black;
+}
+
+[id^="cancel"]::before {
+    transform: skewY(-45deg);
+}
+
+[id^="cancel"]::after {
+    transform: skewY(45deg);
+}
+#loader-bg {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background: black;
+    background-color:rgba(0,0,0,0.5)
+}
+#loader {
+    display: none;
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+}

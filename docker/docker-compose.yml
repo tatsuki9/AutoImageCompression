@@ -1,0 +1,29 @@
+mysql:
+  image: aws-common-registory.aws.nubee.com:5000/tatsuki_nakagawa/image_resize_mysql
+  ports:
+    - 3306:3306
+  volumes:
+    - local/etc/mysql:/etc/mysql
+    - /data/log/mysql:/var/log/mysql
+  tty: true
+app:
+  image: aws-common-registory.aws.nubee.com:5000/tatsuki_nakagawa/image_resize_app
+  volumes:
+    - local/etc/php:/etc/php
+    - /data/log/image_resize:/var/log/image_resize
+    - ../:/var/app
+  links:
+    - mysql
+  tty: true
+nginx:
+  image: aws-common-registory.aws.nubee.com:5000/tatsuki_nakagawa/image_resize_nginx
+  ports:
+    - 80:80
+    - 443:443
+  volumes:
+    - local/etc/nginx:/etc/nginx
+    - /data/log/nginx:/var/log/nginx
+    - ../:/var/app
+  links:
+    - app
+  tty: true
