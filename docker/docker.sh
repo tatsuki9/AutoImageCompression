@@ -42,6 +42,8 @@ sudo chmod 777 /data/log/mysql
 sudo chmod 777 /data/log/nginx
 sudo chmod 777 /data/log/image_resize
 
+sudo chown www-data:www-data -R ${SCRIPT_DIR}"/../"
+
 docker-compose -f ${SETTING_YML} -p ${PROJECT_NAME} ${COMMAND}
 
 docker ps
