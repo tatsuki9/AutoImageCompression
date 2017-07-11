@@ -8,11 +8,16 @@
 
 class Model_Image
 {
-    const ZIP_FILE = '../resize_result/result.zip';
+    const OUTPUT_DIR = '../resize_result';
+    const ZIP_FILE   = self::OUTPUT_DIR.'/result.zip';
 
     public static function resize_and_crop($file)
     {
         $org_filename = $file['tmp_name'];
+        if (!file_exists(self::OUTPUT_DIR))
+        {
+            mkdir(self::OUTPUT_DIR, 0777, true);
+        }
 
         $type = "";
         if (preg_match('/image\/([a-z]+)/', $file['type'], $m))
@@ -39,14 +44,14 @@ class Model_Image
         $compression_info = Model_Tbl_Image_CompressionInfo::find_all_by();
 
         // 前回圧縮したファイルを削除
-        self::delete('../resize_result/*');
+        self::delete(self::OUTPUT_DIR.'/*');
 
         $compressioned_files = array();
         foreach($compression_info as $index => $info)
         {
             for($i = 0; $i < $info['num']; $i++)
             {
-                $output = '../resize_result/'.$info['id']."_".$i.".".$type;
+                $output = self::OUTPUT_DIR.'/'.$info['id']."_".$i.".".$type;
                 $compressioned_files[] = self::execute($image, $output, $info, $type);
             }
         }
